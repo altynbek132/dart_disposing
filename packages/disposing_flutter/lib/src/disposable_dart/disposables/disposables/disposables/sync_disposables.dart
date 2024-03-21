@@ -1,4 +1,4 @@
-import 'package:disposing/src/disposable.dart';
+import 'package:disposing/disposing_dart.dart';
 
 abstract class SyncDisposable extends Disposable {
   bool get isDisposed;

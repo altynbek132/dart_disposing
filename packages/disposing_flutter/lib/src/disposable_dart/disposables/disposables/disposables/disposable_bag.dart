@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:disposing/disposing.dart';
+import 'package:disposing/disposing_dart.dart';
 
 class _AsyncWrapperDisposable extends AsyncDisposable {
   _AsyncWrapperDisposable(Disposable disposable) {

@@ -1,4 +1,4 @@
-import 'package:disposing/disposing.dart';
+import 'package:disposing/disposing_dart.dart';
 import 'package:test/test.dart';
 
 class ErrorDisposable extends SyncDisposable {

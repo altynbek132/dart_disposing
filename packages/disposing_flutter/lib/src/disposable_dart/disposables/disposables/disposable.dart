@@ -1,4 +1,4 @@
-import 'package:disposing/src/exceptions.dart';
+import 'package:disposing/disposing_dart.dart';
 
 abstract class Disposable {
   bool get isDisposed;

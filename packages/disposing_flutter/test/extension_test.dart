@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:disposing_flutter/disposing_flutter.dart';
+import 'package:disposing/disposing_flutter.dart';
 
 class _TestChangeNotifier extends ChangeNotifier {}
 
