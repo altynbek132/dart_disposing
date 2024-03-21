@@ -1,5 +1,4 @@
 import 'package:disposing/disposing.dart';
-import 'package:disposing/src/disposables/sync_disposables.dart';
 
 class SyncDisposableBag extends Iterable<SyncDisposable>
     implements SyncDisposable {

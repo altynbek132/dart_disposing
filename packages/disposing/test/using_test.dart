@@ -1,20 +1,19 @@
 import 'package:disposing/disposing.dart';
-import 'package:disposing/src/exceptions.dart';
 import 'package:test/test.dart';
 
 void main() async {
   group('using', () {
     test('dispose after using', () async {
-      final disp =
-          AsyncCallbackDisposable(() => Future.delayed(Duration(milliseconds: 100)));
+      final disp = AsyncCallbackDisposable(
+          () => Future.delayed(Duration(milliseconds: 100)));
       await using(disp, (_) async {});
       expect(disp.isDisposed, true);
     });
 
     test('throw if disposed', () async {
-      final disp =
-          AsyncCallbackDisposable(() => Future.delayed(Duration(milliseconds: 100)));
-      final dispFuture = disp.dispose();
+      final disp = AsyncCallbackDisposable(
+          () => Future.delayed(Duration(milliseconds: 100)));
+      final dispFuture = disp.disposeAsync();
 
       expect(
         () => using(disp, (_) async {}),
@@ -46,7 +45,7 @@ void main() async {
 
     test('throw if disposed', () async {
       final disp = AsyncValueDisposable(value, () async => {});
-      final dispFuture = disp.dispose();
+      final dispFuture = disp.disposeAsync();
 
       expect(
         () => using(disp, (_) async {}),

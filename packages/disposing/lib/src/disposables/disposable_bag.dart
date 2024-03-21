@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:disposing/disposing.dart';
-import 'package:disposing/src/disposables/async_disposables.dart';
-import 'package:disposing/src/extensions.dart';
 
 class _AsyncWrapperDisposable extends AsyncDisposable {
   _AsyncWrapperDisposable(Disposable disposable) {
@@ -29,28 +27,21 @@ class _AsyncWrapperDisposable extends AsyncDisposable {
   bool get isDisposed => _asyncDisposable.isDisposed;
 
   @override
-  Future<void> dispose() {
-    return _asyncDisposable.dispose();
+  Future<void> disposeAsync() {
+    return _asyncDisposable.disposeAsync();
   }
 }
 
-class DisposableBag extends Iterable<Disposable> implements AsyncDisposable {
-  late final AsyncCallbackDisposable _disposable;
+class DisposableBag implements AsyncDisposable {
+  late final AsyncCallbackDisposable _disposable =
+      AsyncCallbackDisposable(_disposeInternal);
   final _disposables = <_AsyncWrapperDisposable>[];
-
-  DisposableBag() {
-    _disposable = AsyncCallbackDisposable(_disposeInternal);
-  }
 
   @override
   bool get isDisposing => _disposable.isDisposing;
 
   @override
   bool get isDisposed => _disposable.isDisposed;
-
-  @override
-  Iterator<Disposable> get iterator =>
-      _disposables.map((e) => e.disposable).iterator;
 
   @override
   void throwIfNotAvailable([String? target]) {
@@ -73,34 +64,30 @@ class DisposableBag extends Iterable<Disposable> implements AsyncDisposable {
     }
   }
 
-  void removeAt(int index) {
-    throwIfNotAvailable('removeAt');
-    _disposables.removeAt(index);
-  }
-
   void clear() {
     throwIfNotAvailable('clear');
     _disposables.clear();
   }
 
-  Future<void> dispose() {
-    return _disposable.dispose();
+  @override
+  Future<void> disposeAsync() {
+    return _disposable.disposeAsync();
   }
 
   Future<void> _disposeInternal() async {
-    final Map<Disposable, Object> _exs = {};
+    final Map<Disposable, Object> exs = {};
     for (final d in _disposables) {
       try {
-        await d.dispose();
+        await d.disposeAsync();
       } on Object catch (e) {
-        _exs[d.disposable] = e;
+        exs[d.disposable] = e;
       }
     }
 
     _disposables.clear();
 
-    if (_exs.length > 0) {
-      throw BagAggregateException(_exs);
+    if (exs.isNotEmpty) {
+      throw BagAggregateException(exs);
     }
   }
 }

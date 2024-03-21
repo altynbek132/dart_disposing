@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:disposing/disposing.dart';
-import 'package:disposing/src/disposables/async_disposables.dart';
-import 'package:disposing/src/disposables/sync_disposables.dart';
 
 extension DisposableBagExtension on DisposableBag {
   void addCallback(Future<void> callback()) {
