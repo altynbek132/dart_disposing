@@ -1,6 +1,7 @@
 name: disposing_flutter
 description: disposing package for flutter.
 repository: https://github.com/SKKbySSK/dart_disposing/tree/master/disposing_flutter
+publish_to: none
 
 version: 1.0.3+1
 
@@ -10,7 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  disposing: ^1.0.3+1
+  disposing:
+    git:
+      url: https://github.com/altynbek132/dart_disposing.git
+      path: packages/disposing
 
 dev_dependencies:
   flutter_test:
