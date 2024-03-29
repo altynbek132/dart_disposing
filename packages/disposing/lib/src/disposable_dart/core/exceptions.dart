@@ -1,4 +1,4 @@
-import 'package:disposing/src/disposable.dart';
+import 'package:disposing/disposing_dart.dart';
 
 String _getDisposableExceptionMsgPrefix(String? target) {
   return target == null ? '' : 'Can not access $target because ';

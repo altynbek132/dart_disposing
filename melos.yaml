@@ -1,0 +1,6 @@
+name: melos_workspace
+
+packages:
+  # - "*"
+  - packages/*
+  - examples/*

@@ -1,4 +1,4 @@
-import 'package:disposing/disposing.dart';
+import 'package:disposing/disposing_dart.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
@@ -13,7 +13,7 @@ void main() async {
     test('call callback when disposing', () async {
       var called = false;
       final disp = AsyncCallbackDisposable(() async => called = true);
-      await disp.dispose();
+      await disp.disposeAsync();
 
       expect(called, true);
     });
@@ -33,7 +33,7 @@ void main() async {
     test('call callback when disposing', () async {
       var called = false;
       final disp = AsyncValueDisposable(value, () async => called = true);
-      await disp.dispose();
+      await disp.disposeAsync();
 
       expect(called, true);
     });
@@ -50,7 +50,7 @@ Future<void> _testAsyncLifecycle(AsyncDisposable disposable) async {
   expect(disposable.isDisposing, false);
   expect(disposable.isDisposed, false);
 
-  final dispFuture = disposable.dispose();
+  final dispFuture = disposable.disposeAsync();
   print(disposable);
   expect(disposable.isDisposing, true);
   expect(disposable.isDisposed, false);
@@ -59,13 +59,4 @@ Future<void> _testAsyncLifecycle(AsyncDisposable disposable) async {
   print(disposable);
   expect(disposable.isDisposing, false);
   expect(disposable.isDisposed, true);
-}
-
-void _testSyncLifecycle(SyncDisposable disposable) {
-  print(disposable);
-  expect(disposable.isDisposed, false);
-
-  disposable.dispose();
-  print(disposable);
-  expect(disposable.isDisposed, false);
 }

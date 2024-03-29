@@ -1,4 +1,4 @@
-import 'package:disposing/disposing.dart';
+import 'package:disposing/disposing_dart.dart';
 import 'package:flutter/material.dart';
 
 mixin DisposableBagStateMixin<T extends StatefulWidget> on State<T> {
@@ -33,8 +33,8 @@ mixin DisposableBagStateMixin<T extends StatefulWidget> on State<T> {
   }
 
   Future<void> _disposeAsync() async {
-    await _asyncBag.dispose();
-    await _asyncLateBag.dispose();
+    await _asyncBag.disposeAsync();
+    await _asyncLateBag.disposeAsync();
   }
 
   bool shouldLateDispose(Disposable disposable) {

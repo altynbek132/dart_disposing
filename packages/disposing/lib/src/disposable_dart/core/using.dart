@@ -1,10 +1,6 @@
 import 'dart:async';
 
-import 'package:disposing/src/disposables/async_disposables.dart';
-import 'package:disposing/src/disposable.dart';
-import 'package:disposing/src/exceptions.dart';
-import 'package:disposing/src/extensions.dart';
-import 'package:disposing/src/disposables/sync_disposables.dart';
+import 'package:disposing/disposing_dart.dart';
 
 typedef UsingBody<T, R> = FutureOr<R> Function(T value);
 
@@ -23,7 +19,7 @@ Future<R> using<T extends Disposable, R>(T value, UsingBody<T, R> body) async {
   try {
     return await body(value);
   } finally {
-    await disp.dispose();
+    await disp.disposeAsync();
   }
 }
 
