@@ -32,12 +32,11 @@ class _AsyncWrapperDisposable extends AsyncDisposable {
   }
 }
 
-class DisposableBag implements AsyncDisposable {
+class DisposableBag implements SyncDisposable {
   late final AsyncCallbackDisposable _disposable =
       AsyncCallbackDisposable(_disposeInternal);
   final _disposables = <_AsyncWrapperDisposable>[];
 
-  @override
   bool get isDisposing => _disposable.isDisposing;
 
   @override
@@ -70,8 +69,12 @@ class DisposableBag implements AsyncDisposable {
   }
 
   @override
-  Future<void> disposeAsync() {
-    return _disposable.disposeAsync();
+  void dispose() {
+    disposeAsync();
+  }
+
+  Future<void> disposeAsync() async {
+    return await _disposable.disposeAsync();
   }
 
   Future<void> _disposeInternal() async {
